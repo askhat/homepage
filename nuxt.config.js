@@ -8,9 +8,13 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', type: 'text/css', href: 'https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css' }
+      { rel: 'stylesheet', type: 'text/css', href: 'https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Fira+Sans' }
     ]
   },
+  css: [
+    '@/assets/typography.css'
+  ],
   loading: { color: '#3B8070' },
   build: {
     extend (config, { isDev, isClient }) {

@@ -1,65 +1,48 @@
-<template>
-  <section class="container">
-    <div>
-      <app-logo/>
-      <h1 class="title">
-        askhat.io
-      </h1>
-      <h2 class="subtitle">
-        Askhat's Homepage
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
-    </div>
-  </section>
+<template lang="pug">
+.container
+  nav
+    v-navbar
+      nuxt-link(to="/", exact) Home
+      nuxt-link(to="/projects") Projects
+      nuxt-link(to="/links") Links
+  main
+    v-card
+      h1(slot="header") Askhat Bikmetov
+      h2(slot="title") Front–end Developer<br>at YouDo.com
+      img(slot="image", src="/askhat-bikmetov-photo.jpg")
+  footer
+    v-list(horizontal)
+      v-icon(small, name="github", link="https://github.com/askhat")
+      v-icon(small, name="linkedin", link="https://www.linkedin.com/in/askhat-bikmetov-35031aa8/")
+      v-icon(small, name="telegram", link="https://t.me/askhatbik")
+      v-icon(small, name="discord", link="https://discord.gg/Yj7eTTX")
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
+import VNavbar from '~/components/VNavbar'
+import VCard from '~/components/VCard'
+import VList from '~/components/VList'
+import VIcon from '~/components/VIcon'
 
 export default {
   components: {
-    AppLogo
+    VNavbar,
+    VCard,
+    VList,
+    VIcon
   }
 }
 </script>
 
-<style>
+<style scoped>
 .container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: "." "." ".";
 }
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+nav, main, footer {
+  place-self: center;
 }
 </style>
-

@@ -1,10 +1,10 @@
 <template lang="pug">
-section
+.card
   .info
     .name
       slot(name="header")
     .title
-      slot(name="title")
+      slot(name="lead")
   .photo
     slot(name="image")
 </template>
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style scoped>
-section {
+.card {
   display: grid;
   grid-template-columns: 3fr 1fr;
 }

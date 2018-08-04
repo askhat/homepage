@@ -1,24 +1,19 @@
 <script>
 export default {
   props: {
-    horizontal: { type: Boolean, default: false }
+    flexDirection: {
+      type: String,
+      default: 'column',
+      validator: val => val === 'column' || val === 'row'
+    }
   },
   render (h) {
-    return h('ul', { style: {
-      'grid-auto-flow': this.horizontal ? 'column' : 'row'
+    return h('ul', { class: {
+      flex: true,
+      [this.flexDirection]: true
     }}, this.$slots.default.map(el => {
       if (el.tag) return h('li', {}, [el])
     }))
   }
 }
 </script>
-
-
-<style scoped>
-ul {
-  display: grid;
-}
-li {
-  margin: 30px;
-}
-</style>

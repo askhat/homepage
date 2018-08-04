@@ -13,6 +13,8 @@ module.exports = {
     ]
   },
   css: [
+    '@/assets/flow.css',
+    '@/assets/flex.css',
     '@/assets/typography.css'
   ],
   loading: { color: '#3B8070' },

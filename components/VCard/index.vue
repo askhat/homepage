@@ -1,11 +1,9 @@
 <template lang="pug">
-.card
-  .info
-    .name
-      slot(name="header")
-    .title
-      slot(name="lead")
-  .photo
+.flex.row
+  main.flex.column(v-if="hasInfo")
+    slot(name="header")
+    slot(name="lead")
+  aside.flex.column(v-if="hasImage")
     slot(name="image")
 </template>
 
@@ -15,21 +13,25 @@ export default {
     br (str) {
       return str.replace(/\s/, '<br>')
     }
+  },
+  computed: {
+    hasInfo () {
+      return this.$slots.header || this.$slots.lead
+    },
+    hasImage () {
+      return this.$slots.image
+    }
   }
 }
 </script>
 
 <style scoped>
-.card {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
+main {
+  max-height: 120px;
 }
-.info, .photo {
-  place-self: center;
-}
-.photo > * {
+img {
+  max-width: 120px;
+  max-height: 120px;
   border-radius: 50%;
-  max-width: 150px;
-  max-height: 150px;
 }
 </style>

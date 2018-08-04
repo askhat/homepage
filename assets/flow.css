@@ -1,0 +1,24 @@
+:root {
+  --max-width: 414px;
+  --y-unit: calc(768px / 10);
+  --min-width: 320px;
+  --x-unit: calc(320px / 10);
+}
+
+.container {
+  margin: 0 auto;
+  min-width: var(--min-width);
+  padding-top: var(--y-unit);
+}
+
+.row {
+  margin-right: var(--x-unit);
+  margin-left: var(--x-unit);
+  padding-bottom: var(--y-unit);
+}
+
+@media only screen and (min-width: 414px) {
+  .container {
+    max-width: var(--max-width);
+  }
+}

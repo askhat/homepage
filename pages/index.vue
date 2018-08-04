@@ -6,9 +6,12 @@
       nuxt-link(to="/projects") Projects
       nuxt-link(to="/links") Links
   article
-    v-card
-      h1(slot="header") Askhat Bikmetov
-      h2(slot="lead") Front–end Developer<br>at&nbsp;YouDo.com
+    v-card(itemscope, itemtype="http://schema.org/Person")
+      h1(slot="header", itemprop="name") Askhat Bikmetov
+      h2(slot="lead")
+        <span itemprop="jobTitle">Front–end Developer</span>
+        <br>
+        <span itemprop="worksFor">@&nbsp;YouDo.com</span>
       img(slot="image", src="/askhat-bikmetov-photo.jpg")
   footer
     v-list(flex-direction="row")

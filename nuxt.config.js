@@ -4,6 +4,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'yandex-verification', content: '16291c5c56d06f57' },
       { hid: 'description', name: 'description', content: 'Askhat&apos;s Homepage' }
     ],
     link: [
@@ -18,6 +19,19 @@ module.exports = {
     '@/assets/typography.css'
   ],
   loading: { color: '#3B8070' },
+  modules: [
+    [
+      '@nuxtjs/yandex-metrika',
+      {
+        id: '49857259',
+        webvisor: true,
+        clickmap: true,
+        // useCDN:false,
+        // trackLinks:true,
+        // accurateTrackBounce:true,
+      }
+    ],
+  ],
   build: {
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {

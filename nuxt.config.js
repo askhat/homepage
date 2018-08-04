@@ -8,8 +8,8 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', type: 'text/css', href: 'https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Fira+Sans' }
+      { rel: 'stylesheet', type: 'text/css', href: 'https://cdnjs.cloudflare.com/ajax/libs/minireset.css/0.0.2/minireset.min.css' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed:300&amp;subset=cyrillic,cyrillic-ext,latin-ext' }
     ]
   },
   css: [

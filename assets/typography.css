@@ -1,18 +1,32 @@
+:root {
+  --header: 1.75rem;
+  --body: .95rem;
+}
+
 html {
-  font-family: 'Fira Sans', sans-serif;
-  font-size: 62.5%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 100%;
 }
 
 h1 {
-  font-size: 2.4rem;
-  line-height: 3.6rem;
+  font-family: 'Roboto Condensed', sans-serif !important;
 }
 
 h2 {
-  font-size: 1.4rem;
-  line-height: 2rem;
+  font-family: 'Roboto Condensed', sans-serif !important;
 }
 
-li {
-  font-size: 1.2rem;
+h1 {
+  font-size: var(--header);
+  line-height: calc(var(--header) * 1.2);
+}
+
+h2 {
+  font-size: calc(var(--header) * .8);
+  line-height: calc(var(--header) * 1.2);
+}
+
+p, a, li {
+  font-size: var(--body);
+  line-height: calc(var(--body) * 1.2);
 }

@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     iconPath () {
-      return `/${this.name}.${this.format}`
+      return `/i/${this.name}.${this.format}`
     },
     size () {
       let resolution

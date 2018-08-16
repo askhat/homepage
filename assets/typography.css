@@ -30,3 +30,16 @@ p, a, li {
   font-size: var(--body);
   line-height: calc(var(--body) * 1.2);
 }
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:visited {
+  color: darkgray;
+}
+
+.nuxt-link-active, .nuxt-link-exact-active {
+  text-decoration: underline;
+}

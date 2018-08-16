@@ -1,18 +1,18 @@
 <template lang="pug">
 .container
   v-dimmer(:active="gameOn", :radius="25")
-    nav
-      v-list(flex-direction="row")
-        nuxt-link(to="/", exact) Home
-        nuxt-link(to="/projects") Projects
-        nuxt-link(to="/links") Links
+    //- nav
+    //-   v-list(flex-direction="row")
+    //-     nuxt-link(to="/", exact) Home
+    //-     nuxt-link(to="/projects") Projects
+    //-     nuxt-link(to="/links") Links
     article
       v-card(itemscope, itemtype="http://schema.org/Person")
         h1(slot="header", itemprop="name") {{ title }}
         h2(slot="lead")
           span(itemprop="jobTitle") Front–end Developer
           br
-          span(itemprop="worksFor") @&nbsp;YouDo.com
+          span(itemprop="worksFor") at&nbsp;Akvelon
         img(slot="image", src="/askhat-bikmetov-photo.jpg", @click="gameOn = true", v-show="!gameOn")
     footer
       v-list(flex-direction="row")

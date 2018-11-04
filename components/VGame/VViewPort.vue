@@ -4,7 +4,7 @@ canvas(ref="canvas", :height="height", :width="width")
 </template>
 
 <script>
-import CanvasViewPort from '@/mixins/CanvasViewPort'
+import CanvasViewPort from '~/mixins/CanvasViewPort'
 
 export default {
   mixins: [CanvasViewPort]

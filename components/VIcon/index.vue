@@ -9,27 +9,26 @@ div
 export default {
   props: {
     name: { type: String, required: true },
-    link: { type: String, required: false },
+    link: { type: String, required: false, default: '' },
     format: { type: String, default: 'svg' },
     huge: { type: Boolean, default: true },
     medium: { type: Boolean, default: false },
     small: { type: Boolean, default: false }
   },
   computed: {
-    iconPath () {
+    iconPath() {
       return `/i/${this.name}.${this.format}`
     },
-    size () {
+    size() {
       let resolution
       if (this.huge) resolution = 300
       if (this.medium) resolution = 150
       if (this.small) resolution = 50
       return {
-        'width': `${resolution}px`,
-        'height': `${resolution}px`
+        width: `${resolution}px`,
+        height: `${resolution}px`
       }
     }
   }
 }
 </script>
-

@@ -1,11 +1,18 @@
+const pkg = require('./package')
+
 module.exports = {
+  mode: 'universal',
+
+  /*
+  ** Headers of the page
+  */
   head: {
-    title: 'askhat.io',
+    title: pkg.name,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'yandex-verification', content: '16291c5c56d06f57' },
-      { hid: 'description', name: 'description', content: 'Askhat&apos;s Homepage' }
+      { hid: 'description', name: 'description', content: pkg.description },
+      { name: 'yandex-verification', content: '16291c5c56d06f57' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -13,12 +20,30 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed:300&amp;subset=cyrillic,cyrillic-ext,latin-ext' }
     ]
   },
+
+  /*
+  ** Customize the progress-bar color
+  */
+  loading: { color: '#fff' },
+
+  /*
+  ** Global CSS
+  */
   css: [
-    '@/assets/flow.css',
-    '@/assets/flex.css',
-    '@/assets/typography.css'
+    '~/assets/typography.css',
+    '~/assets/flow.css',
+    '~/assets/flex.css'
   ],
-  loading: { color: '#3B8070' },
+
+  /*
+  ** Plugins to load before mounting the App
+  */
+  plugins: [
+  ],
+
+  /*
+  ** Nuxt.js modules
+  */
   modules: [
     [
       '@nuxtjs/yandex-metrika',
@@ -32,9 +57,17 @@ module.exports = {
       }
     ],
   ],
+
+  /*
+  ** Build configuration
+  */
   build: {
-    extend (config, { isDev, isClient }) {
-      if (isDev && isClient) {
+    /*
+    ** You can extend webpack config here
+    */
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
@@ -45,4 +78,3 @@ module.exports = {
     }
   }
 }
-

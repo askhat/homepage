@@ -10,15 +10,15 @@
 <script>
 export default {
   filters: {
-    br (str) {
+    br(str) {
       return str.replace(/\s/, '<br>')
     }
   },
   computed: {
-    hasInfo () {
+    hasInfo() {
       return this.$slots.header || this.$slots.lead
     },
-    hasImage () {
+    hasImage() {
       return this.$slots.image
     }
   }

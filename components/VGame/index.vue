@@ -23,11 +23,12 @@ v-view-port(
 </template>
 
 <script>
-import VViewPort from '@/components/VGame/VViewPort'
-import VGameBall from '@/components/VGame/VGameBall'
-import VGamePaddle from '@/components/VGame/VGamePaddle'
-import VGameBrick from '@/components/VGame/VGameBrick'
+import VViewPort from '~/components/VGame/VViewPort'
+import VGameBall from '~/components/VGame/VGameBall'
+import VGamePaddle from '~/components/VGame/VGamePaddle'
+import VGameBrick from '~/components/VGame/VGameBrick'
 
+// Keyboard events key codes
 const RIGHT = 39
 const LEFT = 37
 
@@ -38,10 +39,12 @@ export default {
     VGamePaddle,
     VGameBrick
   },
-  data () {
+  data() {
     return {
-      rightPressed: false,
-      leftPressed: false,
+      rightPadMovement: false,
+      leftPadMovement: false,
+      touchXDown: null,
+      touchYDown: null,
       viewport: {
         height: 0,
         width: 0
@@ -72,19 +75,23 @@ export default {
             { id: 0, x: 0, y: 0, show: true, image: '/skills/js.png' },
             { id: 1, x: 0, y: 0, show: true, image: '/skills/ruby.png' },
             { id: 2, x: 0, y: 0, show: true, image: '/skills/vue.png' }
-          ], [
+          ],
+          [
             { id: 3, x: 0, y: 0, show: true, image: '/skills/react.png' },
             { id: 4, x: 0, y: 0, show: true, image: '/skills/rails.png' },
             { id: 5, x: 0, y: 0, show: true, image: '/skills/nuxt.png' }
-          ], [
+          ],
+          [
             { id: 6, x: 0, y: 0, show: true, image: '/skills/ubuntu.png' },
             { id: 7, x: 0, y: 0, show: true, image: '/skills/middleman.png' },
             { id: 8, x: 0, y: 0, show: true, image: '/skills/nginx.png' }
-          ], [
+          ],
+          [
             { id: 9, x: 0, y: 0, show: true, image: '/skills/docker.png' },
             { id: 10, x: 0, y: 0, show: true, image: '/skills/html.png' },
             { id: 11, x: 0, y: 0, show: true, image: '/skills/css.png' }
-          ], [
+          ],
+          [
             { id: 12, x: 0, y: 0, show: true, image: '/skills/sass.png' },
             { id: 13, x: 0, y: 0, show: true, image: '/skills/node.png' },
             { id: 14, x: 0, y: 0, show: true, image: '/skills/vuex.png' }
@@ -94,103 +101,146 @@ export default {
     }
   },
   computed: {
-    bricksFlatten () {
-      const flatten = list => list.reduce(
-        (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []
-      )
+    bricksFlatten() {
       return flatten(this.objects.bricks)
     },
-    bricksShown () {
+    bricksShown() {
       return this.bricksFlatten.filter(brick => brick.show)
     },
-    head () {
+    head() {
       return document.querySelector('aside > img')
-    },
+    }
   },
   watch: {
-    bricksShown (bricks) {
+    bricksShown(bricks) {
       if (bricks.length < 1) {
         this.$emit('game-win')
       }
     }
   },
-  mounted () {
+  mounted() {
     this.allocate()
     window.addEventListener('resize', this.allocate)
+    window.addEventListener('touchstart', this.touchStartHandler, false)
+    window.addEventListener('touchmove', this.touchMoveHandler, false)
     window.addEventListener('keydown', this.keyDownHandler, false)
     window.addEventListener('keyup', this.keyUpHandler, false)
     setInterval(this.moveBall, 5)
     setInterval(this.detectCollision, 5)
     setInterval(this.movePad, 10)
   },
-  beforeDestroy () {
+  beforeDestroy() {
     clearInterval(this.moveBall)
     clearInterval(this.movePad)
     clearInterval(this.detectCollision)
     window.removeEventListener('resize', this.allocate)
+    window.removeEventListener('touchstart', this.touchStartHandler)
+    window.removeEventListener('touchmove', this.touchMoveHandler)
     window.removeEventListener('keydown', this.keyDownHandler)
     window.removeEventListener('keyup', this.keyUpHandler)
   },
   methods: {
-    keyDownHandler (e) {
+    touchStartHandler({ touches }) {
+      const [touch] = touches
+      const { clientX, clientY } = touch
+      this.touchXDown = clientX
+      this.touchYDown = clientY
+    },
+    touchMoveHandler({ touches }) {
+      const { touchXDown, touchYDown } = this
+      if (!touchXDown || !touchYDown) {
+        return null
+      }
+      const [touch] = touches
+      const { clientX: touchXUp, clientY: touchYUp } = touch
+      const touchXDiff = touchXDown - touchXUp
+      const touchYDiff = touchYDown - touchYUp
+      if (Math.abs(touchXDiff) > Math.abs(touchYDiff)) {
+        if (touchXDiff > 0) {
+          this.leftPadMovement = true
+        } else {
+          this.rightPadMovement = true
+        }
+      }
+      this.touchXDown = null
+      this.touchYDown = null
+    },
+    keyDownHandler(e) {
       switch (e.keyCode) {
-        case RIGHT: this.rightPressed = true; break
-        case LEFT: this.leftPressed = true; break
+        case RIGHT:
+          this.rightPadMovement = true
+          break
+        case LEFT:
+          this.leftPadMovement = true
+          break
       }
     },
-    keyUpHandler (e) {
+    keyUpHandler(e) {
       switch (e.keyCode) {
-        case RIGHT: this.rightPressed = false; break
-        case LEFT: this.leftPressed = false; break
+        case RIGHT:
+          this.rightPadMovement = false
+          break
+        case LEFT:
+          this.leftPadMovement = false
+          break
       }
     },
-    moveBall () {
+    moveBall() {
       const { viewport } = this
       const { ball, pad } = this.objects
 
       if (ball.y + ball.dy > viewport.height - ball.radius) {
-        if(ball.x > pad.x && ball.x < pad.x + pad.width) {
-            ball.dy = -ball.dy
+        if (ball.x > pad.x && ball.x < pad.x + pad.width) {
+          ball.dy = -ball.dy
         } else {
           this.$emit('game-over')
         }
       }
-      if (ball.x + ball.dx > viewport.width - ball.radius || ball.x + ball.dx < ball.radius) {
+      if (
+        ball.x + ball.dx > viewport.width - ball.radius ||
+        ball.x + ball.dx < ball.radius
+      ) {
         ball.dx = -ball.dx
       }
-      if (ball.y + ball.dy > viewport.height - ball.radius || ball.y + ball.dy < ball.radius) {
-          ball.dy = -ball.dy
+      if (
+        ball.y + ball.dy > viewport.height - ball.radius ||
+        ball.y + ball.dy < ball.radius
+      ) {
+        ball.dy = -ball.dy
       }
       ball.x += ball.dx
       ball.y += ball.dy
     },
-    movePad () {
+    movePad() {
       const { viewport } = this
       const { pad } = this.objects
-      if (this.rightPressed && pad.x < viewport.width - pad.width) {
+      if (this.rightPadMovement && pad.x < viewport.width - pad.width) {
         pad.x += 10
       }
-      if (this.leftPressed && pad.x > 0) {
+      if (this.leftPadMovement && pad.x > 0) {
         pad.x -= 10
       }
     },
-    detectCollision () {
+    detectCollision() {
       const { ball, bricks, brickConfig } = this.objects
       for (let c = 0; c < brickConfig.cols; c++) {
         for (let r = 0; r < brickConfig.rows; r++) {
           let b = bricks[c][r]
-          if(b.show && ball.x > b.x && ball.x < b.x + brickConfig.width && ball.y > b.y && ball.y < b.y + brickConfig.height) {
+          if (
+            b.show &&
+            ball.x > b.x &&
+            ball.x < b.x + brickConfig.width &&
+            ball.y > b.y &&
+            ball.y < b.y + brickConfig.height
+          ) {
             ball.dy = -ball.dy
             b.show = false
           }
         }
       }
     },
-    allocate () {
-      const {
-        innerHeight: height,
-        innerWidth: width
-      } = window
+    allocate() {
+      const { innerHeight: height, innerWidth: width } = window
 
       this.viewport.height = height
       this.viewport.width = width
@@ -203,11 +253,15 @@ export default {
       pad.x = (width - pad.width) / 2
       pad.y = height - pad.height
 
-      const offset = (width - (brickConfig.width * brickConfig.cols + brickConfig.gap * (brickConfig.cols - 1))) / 2
+      const offset =
+        (width -
+          (brickConfig.width * brickConfig.cols +
+            brickConfig.gap * (brickConfig.cols - 1))) /
+        2
       for (let c = 0; c < brickConfig.cols; c++) {
         for (let r = 0; r < brickConfig.rows; r++) {
-          let x = (c * (brickConfig.width + brickConfig.gap)) + offset
-          let y = (r * (brickConfig.height + brickConfig.gap)) + brickConfig.gap // offset top
+          let x = c * (brickConfig.width + brickConfig.gap) + offset
+          let y = r * (brickConfig.height + brickConfig.gap) + brickConfig.gap // offset top
           bricks[c][r].x = x
           bricks[c][r].y = y
         }
@@ -216,3 +270,9 @@ export default {
   }
 }
 </script>
+
+<style>
+body {
+  overflow: hidden;
+}
+</style>

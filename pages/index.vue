@@ -38,18 +38,18 @@ export default {
     VList,
     VIcon
   },
-  data () {
+  data() {
     return {
       gameOn: false,
       title: 'Askhat Bikmetov'
     }
   },
   methods: {
-    handleGameWin () {
+    handleGameWin() {
       const oldTitle = this.title
       this.gameOn = false
       this.title = 'You Won!'
-      setTimeout(() => this.title = oldTitle, 3000)
+      setTimeout(() => (this.title = oldTitle), 3000)
     }
   }
 }

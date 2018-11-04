@@ -7,10 +7,10 @@ div(:style="dimmerStyle")
 export default {
   props: {
     active: { type: Boolean, default: false },
-    radius: { type: Number, defualt: 5 }
+    radius: { type: Number, default: 5 }
   },
   computed: {
-    dimmerStyle () {
+    dimmerStyle() {
       if (this.active) {
         return {
           filter: `blur(${this.radius}px`

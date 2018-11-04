@@ -8,15 +8,15 @@ export default {
     radius: { type: Number, required: false },
     color: { type: String, default: 'black' }
   },
-  render () {
+  render() {
     return null
   },
-  data () {
+  data() {
     return {
       ready: false
     }
   },
-  mounted () {
+  mounted() {
     this.ready = true
   }
 }

@@ -1,10 +1,10 @@
 <script>
-import CanvasObject from '@/mixins/CanvasObject'
+import CanvasObject from '~/mixins/CanvasObject'
 
 export default {
   mixins: [CanvasObject],
   methods: {
-    draw () {
+    draw() {
       if (this.ready) {
         this.canvas.ctx.beginPath()
         this.canvas.ctx.rect(this.x, this.y, this.width, this.height)

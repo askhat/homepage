@@ -1,5 +1,7 @@
-name: Deploy
+name: CI
 
+# Deploys are done by Cloudflare Workers Builds (the Cloudflare GitHub app);
+# this workflow only checks that the site formats and builds.
 on:
   push:
     branches: [master]
@@ -17,8 +19,3 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run build
-      - name: Deploy to Cloudflare Workers
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        run: npx wrangler deploy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

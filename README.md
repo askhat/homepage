@@ -19,9 +19,13 @@ npm run format    # prettier
 
 ## Deployment
 
-Pushes to `master` are built and deployed by GitHub Actions
-(`.github/workflows/deploy.yml`). The workflow needs a `CLOUDFLARE_API_TOKEN`
-repository secret: a Cloudflare API token created from the **Edit Cloudflare Workers**
-template. The target account is set in `wrangler.jsonc`.
+Deploys are handled by [Cloudflare Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/)
+(the Cloudflare GitHub app), connected to the `homepage` Worker:
+
+- build command: `npm run build`
+- deploy command: `npx wrangler deploy`
+
+Pushes to `master` go to production; other branches get preview versions.
+GitHub Actions (`.github/workflows/ci.yml`) only checks formatting and the build.
 
 Manual deploy: `npx wrangler login && npm run deploy`.

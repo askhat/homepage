@@ -1,0 +1,66 @@
+:root {
+  --header: 1.75rem;
+  --body: 0.95rem;
+  --max-width: 414px;
+  --min-width: 320px;
+  --y-unit: calc(768px / 10);
+  --x-unit: calc(320px / 10);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Roboto', sans-serif;
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+h1,
+h2 {
+  font-family: 'Roboto Condensed', sans-serif;
+  line-height: calc(var(--header) * 1.2);
+}
+
+h1 {
+  font-size: var(--header);
+}
+
+h2 {
+  font-size: calc(var(--header) * 0.8);
+}
+
+p,
+a,
+li {
+  font-size: var(--body);
+  line-height: calc(var(--body) * 1.2);
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:visited {
+  color: darkgray;
+}
+
+img {
+  display: block;
+}

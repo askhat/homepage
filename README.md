@@ -1,22 +1,27 @@
 # homepage
 
-> Askhat&#39;s Home Page
+> Askhat's Home Page — [askhat.xyz](https://askhat.xyz)
 
-## Build Setup
+Built with [SvelteKit](https://svelte.dev/docs/kit), fully prerendered and served by
+[Cloudflare Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/).
 
-``` bash
-# install dependencies
-$ yarn install
+Click the photo to play.
 
-# serve with hot reload at localhost:3000
-$ yarn run dev
+## Development
 
-# build for production and launch server
-$ yarn run build
-$ yarn start
-
-# generate static project
-$ yarn run generate
+```bash
+npm install
+npm run dev       # dev server at localhost:5173
+npm run build     # static build into ./build
+npm run preview   # serve ./build with wrangler, like production
+npm run format    # prettier
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+## Deployment
+
+Pushes to `master` are built and deployed by GitHub Actions
+(`.github/workflows/deploy.yml`). The workflow needs a `CLOUDFLARE_API_TOKEN`
+repository secret: a Cloudflare API token created from the **Edit Cloudflare Workers**
+template. The target account is set in `wrangler.jsonc`.
+
+Manual deploy: `npx wrangler login && npm run deploy`.

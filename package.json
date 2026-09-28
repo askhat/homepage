@@ -1,32 +1,26 @@
 {
   "name": "homepage",
-  "version": "1.0.0",
-  "description": "Askhat&#39;s Home Page",
+  "version": "2.0.0",
+  "description": "Askhat's Home Page",
   "author": "Askhat Bikmetov",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
-  },
-  "dependencies": {
-    "@nuxtjs/yandex-metrika": "^0.1.0",
-    "cross-env": "^5.2.0",
-    "nuxt": "^2.0.0"
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
+    "format": "prettier --write .",
+    "lint": "prettier --check ."
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
-    "eslint": "^5.0.1",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-prettier": "2.6.2",
-    "eslint-plugin-vue": "^4.0.0",
-    "nodemon": "^1.11.0",
-    "prettier": "1.14.3",
-    "pug": "^2.0.3",
-    "pug-plain-loader": "^1.0.0"
+    "@sveltejs/adapter-static": "^3.0.10",
+    "@sveltejs/kit": "^2.70.3",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "prettier": "^3.9.9",
+    "prettier-plugin-svelte": "^4.1.1",
+    "svelte": "^5.57.1",
+    "vite": "^8.3.1",
+    "wrangler": "^4.142.0"
   }
 }

@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "homepage",
+  "account_id": "546d25949471ac23ccc1d8beb6cf1e82",
+  "compatibility_date": "2026-09-28",
+  "assets": {
+    "directory": "./build",
+    "not_found_handling": "404-page"
+  }
+  // To serve on the custom domain once the askhat.xyz zone is on Cloudflare:
+  // "routes": [{ "pattern": "askhat.xyz", "custom_domain": true }]
+}
